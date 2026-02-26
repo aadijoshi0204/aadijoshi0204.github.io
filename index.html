@@ -285,12 +285,117 @@
       text-transform: uppercase;
       color: var(--muted);
     }
+
+    /* ─── Photo Block ───────────────────────────────────────────── */
+    .about-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .photo-block {
+      position: relative;
+      /* Decorative offset border */
+    }
+    .photo-block::after {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: -14px;
+      bottom: -14px;
+      border: 1px solid var(--accent);
+      z-index: 0;
+      pointer-events: none;
+      transition: transform 0.4s ease;
+    }
+    .photo-block:hover::after {
+      transform: translate(4px, 4px);
+    }
+    .photo-block img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      filter: grayscale(15%);
+      transition: filter 0.4s ease;
+    }
+    .photo-block:hover img {
+      filter: grayscale(0%);
+    }
+
+    /* Placeholder shown when no real photo is set */
+    .photo-placeholder {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: linear-gradient(145deg, var(--border) 0%, #c8d4e4 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .photo-placeholder:hover {
+      background: linear-gradient(145deg, #c8d4e4 0%, var(--mid) 100%);
+    }
+    .photo-placeholder-icon {
+      font-size: 2.5rem;
+      opacity: 0.5;
+    }
+    .photo-placeholder-text {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--slate);
+      opacity: 0.7;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    /* Photo caption strip */
+    .photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 1.2rem 1.4rem;
+      background: linear-gradient(to top, rgba(15,30,53,0.85) 0%, transparent 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .photo-block:hover .photo-caption {
+      opacity: 1;
+    }
+    .photo-caption-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--white);
+    }
+    .photo-caption-role {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
     /* Quote / intriguing element */
     .about-quote {
       border-left: 2px solid var(--accent);
       padding: 2rem 2rem 2rem 2.5rem;
       background: var(--white);
-      margin-bottom: 2rem;
     }
     .about-quote blockquote {
       font-family: 'Cormorant Garamond', serif;
@@ -305,6 +410,34 @@
       font-size: 0.78rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Education / cert cards */
+    .info-card {
+      padding: 1.5rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+    .info-card-emoji { font-size: 1.4rem; margin-top: 0.1rem; }
+    .info-card-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+    .info-card-value {
+      font-weight: 500;
+      color: var(--navy);
+      font-size: 0.95rem;
+    }
+    .info-card-sub {
+      font-size: 0.85rem;
       color: var(--muted);
     }
 
@@ -332,10 +465,7 @@
     }
     .skill-card:hover::before { width: 100%; }
     .skill-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(15,30,53,0.08); }
-    .skill-icon {
-      font-size: 1.8rem;
-      margin-bottom: 1.2rem;
-    }
+    .skill-icon { font-size: 1.8rem; margin-bottom: 1.2rem; }
     .skill-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.5rem;
@@ -366,7 +496,6 @@
     }
     @keyframes barGrow { to { transform: scaleX(1); } }
 
-    /* Extra tools row */
     .tools-row {
       display: flex;
       flex-wrap: wrap;
@@ -436,11 +565,7 @@
       line-height: 1.8;
       margin-bottom: 1.5rem;
     }
-    .work-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
+    .work-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .chip {
       padding: 0.3rem 0.8rem;
       font-size: 0.7rem;
@@ -450,15 +575,9 @@
       border-radius: 2px;
     }
 
-    /* ─── Intriguing "Numbers" Section ─────────────────────────── */
-    #numbers {
-      background: var(--light);
-      padding: 6rem 4rem;
-    }
-    .numbers-headline {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
+    /* ─── Numbers ───────────────────────────────────────────────── */
+    #numbers { background: var(--light); padding: 6rem 4rem; }
+    .numbers-headline { text-align: center; margin-bottom: 4rem; }
     .numbers-headline .section-label { justify-content: center; }
     .numbers-headline .section-label::after { display: none; }
     .numbers-headline .section-title { margin-bottom: 0; }
@@ -492,16 +611,9 @@
       color: var(--muted);
     }
 
-    /* ─── Fun / Intriguing: Data Insight ────────────────────────── */
-    #insight {
-      background: var(--white);
-      padding: 6rem 4rem;
-    }
-    .insight-wrap {
-      max-width: 860px;
-      margin: 0 auto;
-      text-align: center;
-    }
+    /* ─── Insight ───────────────────────────────────────────────── */
+    #insight { background: var(--white); padding: 6rem 4rem; }
+    .insight-wrap { max-width: 860px; margin: 0 auto; text-align: center; }
     .insight-wrap .section-label { justify-content: center; }
     .insight-wrap .section-label::after { display: none; }
     .insight-wrap .section-title { margin-bottom: 1rem; }
@@ -521,8 +633,6 @@
       max-width: 560px;
       margin: 0 auto 2.5rem;
     }
-
-    /* Animated chart bars */
     .mini-chart {
       display: flex;
       align-items: flex-end;
@@ -550,9 +660,7 @@
     .bar:nth-child(6) { --h: 82%; animation-delay: 0.6s; }
     .bar:nth-child(7) { --h: 70%; animation-delay: 0.7s; }
     .bar:nth-child(8) { --h: 95%; animation-delay: 0.8s; background: var(--slate); }
-    @keyframes chartBar {
-      to { transform: scaleY(var(--h)); }
-    }
+    @keyframes chartBar { to { transform: scaleY(var(--h)); } }
 
     /* ─── Contact ───────────────────────────────────────────────── */
     #contact { background: var(--light); }
@@ -569,11 +677,7 @@
       line-height: 1.9;
       margin-bottom: 2rem;
     }
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
     .contact-link {
       display: flex;
       align-items: center;
@@ -584,10 +688,7 @@
       text-decoration: none;
       transition: border-color 0.25s, box-shadow 0.25s;
     }
-    .contact-link:hover {
-      border-color: var(--mid);
-      box-shadow: 0 4px 20px rgba(15,30,53,0.06);
-    }
+    .contact-link:hover { border-color: var(--mid); box-shadow: 0 4px 20px rgba(15,30,53,0.06); }
     .contact-link-icon {
       width: 36px; height: 36px;
       background: var(--light);
@@ -597,7 +698,6 @@
       font-size: 1rem;
       flex-shrink: 0;
     }
-    .contact-link-info {}
     .contact-link-label {
       font-size: 0.7rem;
       font-weight: 500;
@@ -606,11 +706,7 @@
       color: var(--muted);
       margin-bottom: 0.15rem;
     }
-    .contact-link-value {
-      font-size: 0.9rem;
-      font-weight: 400;
-      color: var(--navy);
-    }
+    .contact-link-value { font-size: 0.9rem; font-weight: 400; color: var(--navy); }
     .contact-right {
       padding: 3rem;
       background: var(--white);
@@ -631,9 +727,7 @@
       line-height: 1.7;
       margin-bottom: 2rem;
     }
-    .form-field {
-      margin-bottom: 1.2rem;
-    }
+    .form-field { margin-bottom: 1.2rem; }
     .form-field label {
       display: block;
       font-size: 0.72rem;
@@ -658,10 +752,7 @@
       resize: vertical;
     }
     .form-field input:focus,
-    .form-field textarea:focus {
-      border-color: var(--slate);
-      background: var(--white);
-    }
+    .form-field textarea:focus { border-color: var(--slate); background: var(--white); }
     .form-field textarea { min-height: 100px; }
     .btn-submit {
       width: 100%;
@@ -694,11 +785,7 @@
       color: rgba(255,255,255,0.7);
     }
     .footer-logo span { color: var(--accent); }
-    .footer-copy {
-      font-size: 0.78rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.35);
-    }
+    .footer-copy { font-size: 0.78rem; font-weight: 300; color: rgba(255,255,255,0.35); }
 
     /* ─── Animations ────────────────────────────────────────────── */
     @keyframes fadeUp {
@@ -710,10 +797,7 @@
       transform: translateY(28px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ─── Responsive ────────────────────────────────────────────── */
     @media (max-width: 900px) {
@@ -730,6 +814,7 @@
       .hero-bg-line, .hero-bg-line2, .hero-number { display: none; }
       .hero-scroll { left: 2rem; }
       footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+      .photo-block::after { display: none; }
     }
     @media (max-width: 600px) {
       .skills-grid { grid-template-columns: 1fr; }
@@ -742,7 +827,7 @@
 
   <!-- ── Navigation ─────────────────────────────────────────────── -->
   <nav id="navbar">
-    <a href="#hero" class="nav-logo"><!-- YOUR INITIALS e.g. AJ --> <span>.</span></a>
+    <a href="#hero" class="nav-logo">AJ<span>.</span></a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -759,18 +844,11 @@
 
     <div class="hero-content">
       <div class="hero-tag">Data &amp; Finance Analyst</div>
-
-      <!-- ✏️ REPLACE with your name -->
-     <h1 class="hero-name">
-  Aaditya <em>Joshi</em>
-     </h1>
-
-      <!-- ✏️ REPLACE with your tagline / one-liner -->
+      <h1 class="hero-name">Aaditya <em>Joshi</em></h1>
       <p class="hero-bio">
         Transforming complex financial data into clear, actionable intelligence.
         Where numbers tell a story — I write the narrative.
       </p>
-
       <div class="hero-ctas">
         <a href="#work" class="btn-primary">View My Work</a>
         <a href="#contact" class="btn-ghost">Get in Touch</a>
@@ -791,8 +869,8 @@
     </div>
 
     <div class="about-grid">
+      <!-- Left: bio text + stats -->
       <div class="about-text reveal">
-        <!-- ✏️ REPLACE with your own bio paragraphs -->
         <p>
           I'm a <strong>Data &amp; Finance Analyst</strong> with a passion for transforming raw
           numbers into meaningful insights. I specialize in financial modeling,
@@ -809,7 +887,6 @@
         </p>
 
         <div class="about-stats">
-          <!-- ✏️ Update these numbers as appropriate -->
           <div class="stat-card">
             <div class="stat-number">3<span style="color:var(--accent)">+</span></div>
             <div class="stat-label">Years Experience</div>
@@ -829,35 +906,84 @@
         </div>
       </div>
 
-      <div class="reveal">
+      <!-- Right: photo + quote + education -->
+      <div class="about-right reveal">
+
+        <!--
+          ╔══════════════════════════════════════════════════════════╗
+          ║  HOW TO ADD YOUR PHOTO                                   ║
+          ║                                                          ║
+          ║  Option A – local file (same folder as this HTML):      ║
+          ║    Replace  src="your-photo.jpg"  below                 ║
+          ║    e.g.  src="aaditya.jpg"                              ║
+          ║                                                          ║
+          ║  Option B – online URL:                                  ║
+          ║    src="https://example.com/path/to/your-photo.jpg"     ║
+          ║                                                          ║
+          ║  Option C – GitHub raw URL:                              ║
+          ║    src="https://raw.githubusercontent.com/..."          ║
+          ║                                                          ║
+          ║  Once you set a real src, delete the placeholder div    ║
+          ║  and un-comment the <img> tag below.                    ║
+          ╚══════════════════════════════════════════════════════════╝
+        -->
+
+        <div class="photo-block" id="photoBlock">
+
+          <!-- ▼ UNCOMMENT THIS and set src= to your real photo path ▼
+          <img
+            src="your-photo.jpg"
+            alt="Aaditya Joshi – Data & Finance Analyst"
+            id="profilePhoto"
+          />
+          <div class="photo-caption">
+            <div>
+              <div class="photo-caption-name">Aaditya Joshi</div>
+              <div class="photo-caption-role">Data &amp; Finance Analyst</div>
+            </div>
+          </div>
+          ▲ UNCOMMENT the block above ▲ -->
+
+          <!-- ▼ DELETE this placeholder once you have a real photo ▼ -->
+          <div class="photo-placeholder" id="photoPlaceholder" onclick="document.getElementById('photoInput').click()">
+            <div class="photo-placeholder-icon">📷</div>
+            <div class="photo-placeholder-text">Click to upload your photo<br><span style="opacity:0.5; font-size:0.65rem;">or edit the HTML to set src=</span></div>
+          </div>
+          <!-- ▲ DELETE placeholder above ▲ -->
+
+          <!-- Hidden file input for in-browser preview -->
+          <input type="file" id="photoInput" accept="image/*" style="display:none" />
+        </div>
+
+        <!-- Quote -->
         <div class="about-quote">
-          <!-- ✏️ Optional: your favourite quote or philosophy -->
           <blockquote>
             "In God we trust; all others must bring data."
           </blockquote>
           <cite>— W. Edwards Deming</cite>
         </div>
 
-        <!-- ✏️ Update with your actual education/certifications -->
+        <!-- Education + Certs -->
         <div style="display:flex; flex-direction:column; gap:1rem;">
-          <div style="padding:1.5rem; background:var(--white); border:1px solid var(--border); display:flex; gap:1.2rem; align-items:flex-start;">
-            <div style="font-size:1.4rem; margin-top:0.1rem;">🎓</div>
+          <div class="info-card">
+            <div class="info-card-emoji">🎓</div>
             <div>
-              <div style="font-size:0.7rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:0.2rem;">Education</div>
-              <div style="font-weight:500; color:var(--navy); font-size:0.95rem;"><!-- Your Degree --></div>
-              <div style="font-size:0.85rem; color:var(--muted);"><!-- Your University --></div>
+              <div class="info-card-label">Education</div>
+              <div class="info-card-value"><!-- Your Degree --></div>
+              <div class="info-card-sub"><!-- Your University --></div>
             </div>
           </div>
-          <div style="padding:1.5rem; background:var(--white); border:1px solid var(--border); display:flex; gap:1.2rem; align-items:flex-start;">
-            <div style="font-size:1.4rem; margin-top:0.1rem;">📜</div>
+          <div class="info-card">
+            <div class="info-card-emoji">📜</div>
             <div>
-              <div style="font-size:0.7rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:0.2rem;">Certifications</div>
-              <div style="font-weight:500; color:var(--navy); font-size:0.95rem;"><!-- e.g. CFA Level I, Google Data Analytics --></div>
+              <div class="info-card-label">Certifications</div>
+              <div class="info-card-value"><!-- e.g. CFA Level I, Google Data Analytics --></div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+
+      </div><!-- /about-right -->
+    </div><!-- /about-grid -->
   </section>
 
   <!-- ── Skills ─────────────────────────────────────────────────── -->
@@ -871,42 +997,24 @@
       <div class="skill-card reveal">
         <div class="skill-icon">📊</div>
         <div class="skill-name">Excel & Power BI</div>
-        <div class="skill-desc">
-          Advanced financial modeling, pivot analysis, dynamic dashboards,
-          and executive-level reporting that drives strategy.
-        </div>
-        <div class="skill-bar-wrap">
-          <div class="skill-bar" style="--scale:0.95; animation-delay:0.1s;"></div>
-        </div>
+        <div class="skill-desc">Advanced financial modeling, pivot analysis, dynamic dashboards, and executive-level reporting that drives strategy.</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="animation-delay:0.1s;"></div></div>
       </div>
-
       <div class="skill-card reveal">
         <div class="skill-icon">🗄️</div>
         <div class="skill-name">SQL</div>
-        <div class="skill-desc">
-          Complex queries, data extraction, performance optimization, and
-          building analytics-ready datasets from large relational databases.
-        </div>
-        <div class="skill-bar-wrap">
-          <div class="skill-bar" style="--scale:0.88; animation-delay:0.2s;"></div>
-        </div>
+        <div class="skill-desc">Complex queries, data extraction, performance optimization, and building analytics-ready datasets from large relational databases.</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="animation-delay:0.2s;"></div></div>
       </div>
-
       <div class="skill-card reveal">
         <div class="skill-icon">📈</div>
         <div class="skill-name">Financial Modeling</div>
-        <div class="skill-desc">
-          DCF, LBO, three-statement models, scenario analysis, and
-          sensitivity testing to support investment and business decisions.
-        </div>
-        <div class="skill-bar-wrap">
-          <div class="skill-bar" style="--scale:0.92; animation-delay:0.3s;"></div>
-        </div>
+        <div class="skill-desc">DCF, LBO, three-statement models, scenario analysis, and sensitivity testing to support investment and business decisions.</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="animation-delay:0.3s;"></div></div>
       </div>
     </div>
 
     <div class="tools-row reveal">
-      <!-- ✏️ Add/remove tools as needed -->
       <span class="tool-pill">Tableau</span>
       <span class="tool-pill">Bloomberg Terminal</span>
       <span class="tool-pill">Python (Pandas)</span>
@@ -926,115 +1034,58 @@
     </div>
 
     <div class="work-grid">
-
-      <!-- ✏️ Replace each card with your real projects -->
       <div class="work-card reveal">
         <div class="work-card-num">01</div>
         <div class="work-tag">Financial Modeling · 2024</div>
         <div class="work-title">Revenue Forecasting<br>Model</div>
-        <div class="work-desc">
-          Built a multi-scenario 3-statement model projecting 5-year
-          revenue, EBITDA, and free cash flow for a mid-market firm,
-          directly informing a $12M capital raise.
-        </div>
-        <div class="work-chips">
-          <span class="chip">Excel</span>
-          <span class="chip">DCF</span>
-          <span class="chip">Scenario Analysis</span>
-        </div>
+        <div class="work-desc">Built a multi-scenario 3-statement model projecting 5-year revenue, EBITDA, and free cash flow for a mid-market firm, directly informing a $12M capital raise.</div>
+        <div class="work-chips"><span class="chip">Excel</span><span class="chip">DCF</span><span class="chip">Scenario Analysis</span></div>
       </div>
-
       <div class="work-card reveal">
         <div class="work-card-num">02</div>
         <div class="work-tag">Data Analytics · 2024</div>
         <div class="work-title">Executive KPI<br>Dashboard</div>
-        <div class="work-desc">
-          Designed and deployed an automated Power BI dashboard tracking
-          15 KPIs across 4 business units, reducing reporting time by 60%.
-        </div>
-        <div class="work-chips">
-          <span class="chip">Power BI</span>
-          <span class="chip">SQL</span>
-          <span class="chip">DAX</span>
-        </div>
+        <div class="work-desc">Designed and deployed an automated Power BI dashboard tracking 15 KPIs across 4 business units, reducing reporting time by 60%.</div>
+        <div class="work-chips"><span class="chip">Power BI</span><span class="chip">SQL</span><span class="chip">DAX</span></div>
       </div>
-
       <div class="work-card reveal">
         <div class="work-card-num">03</div>
         <div class="work-tag">SQL · Data Engineering · 2023</div>
         <div class="work-title">Financial Data<br>Pipeline</div>
-        <div class="work-desc">
-          Developed SQL pipelines to consolidate transactional data from
-          3 sources into a unified analytics layer, enabling real-time P&amp;L
-          analysis for finance leadership.
-        </div>
-        <div class="work-chips">
-          <span class="chip">SQL</span>
-          <span class="chip">ETL</span>
-          <span class="chip">Reporting</span>
-        </div>
+        <div class="work-desc">Developed SQL pipelines to consolidate transactional data from 3 sources into a unified analytics layer, enabling real-time P&amp;L analysis for finance leadership.</div>
+        <div class="work-chips"><span class="chip">SQL</span><span class="chip">ETL</span><span class="chip">Reporting</span></div>
       </div>
-
       <div class="work-card reveal">
         <div class="work-card-num">04</div>
         <div class="work-tag">Research · Equity · 2023</div>
         <div class="work-title">Equity Research<br>Report</div>
-        <div class="work-desc">
-          Authored a full-coverage equity report on a publicly listed
-          company — covering valuation, competitive positioning, and
-          risk factors with a clear buy/hold/sell recommendation.
-        </div>
-        <div class="work-chips">
-          <span class="chip">Bloomberg</span>
-          <span class="chip">Valuation</span>
-          <span class="chip">Excel</span>
-        </div>
+        <div class="work-desc">Authored a full-coverage equity report on a publicly listed company — covering valuation, competitive positioning, and risk factors with a clear buy/hold/sell recommendation.</div>
+        <div class="work-chips"><span class="chip">Bloomberg</span><span class="chip">Valuation</span><span class="chip">Excel</span></div>
       </div>
-
     </div>
   </section>
 
-  <!-- ── By the Numbers (Intriguing) ───────────────────────────── -->
+  <!-- ── By the Numbers ─────────────────────────────────────────── -->
   <section id="numbers">
     <div class="numbers-headline reveal">
       <div class="section-label">04 — Impact</div>
       <h2 class="section-title">Work that <em>moves</em> the needle</h2>
     </div>
     <div class="numbers-row reveal">
-      <!-- ✏️ Update with your real metrics -->
-      <div class="num-item">
-        <div class="num-big">$<span>12</span>M</div>
-        <div class="num-label">Capital Decisions Supported</div>
-      </div>
-      <div class="num-item">
-        <div class="num-big"><span>60</span>%</div>
-        <div class="num-label">Reporting Time Reduced</div>
-      </div>
-      <div class="num-item">
-        <div class="num-big"><span>20</span>+</div>
-        <div class="num-label">Models Built</div>
-      </div>
-      <div class="num-item">
-        <div class="num-big"><span>5</span>+</div>
-        <div class="num-label">Industries Analyzed</div>
-      </div>
+      <div class="num-item"><div class="num-big">$<span>12</span>M</div><div class="num-label">Capital Decisions Supported</div></div>
+      <div class="num-item"><div class="num-big"><span>60</span>%</div><div class="num-label">Reporting Time Reduced</div></div>
+      <div class="num-item"><div class="num-big"><span>20</span>+</div><div class="num-label">Models Built</div></div>
+      <div class="num-item"><div class="num-big"><span>5</span>+</div><div class="num-label">Industries Analyzed</div></div>
     </div>
   </section>
 
-  <!-- ── Insight (Intriguing Section) ──────────────────────────── -->
+  <!-- ── Insight ────────────────────────────────────────────────── -->
   <section id="insight">
     <div class="insight-wrap reveal">
       <div class="section-label">05 — Philosophy</div>
       <h2 class="section-title">Why I <em>love</em> data</h2>
-      <p class="insight-pull">
-        "Every dataset is a puzzle. Every model is a hypothesis.<br>
-        Every insight is a decision waiting to be made."
-      </p>
-      <p class="insight-sub">
-        I got into finance and data because I believe good decisions, backed by
-        rigorous analysis, genuinely change outcomes — for companies, teams, and people.
-      </p>
-      <!-- ✏️ Optional: keep or remove this visual flourish -->
+      <p class="insight-pull">"Every dataset is a puzzle. Every model is a hypothesis.<br>Every insight is a decision waiting to be made."</p>
+      <p class="insight-sub">I got into finance and data because I believe good decisions, backed by rigorous analysis, genuinely change outcomes — for companies, teams, and people.</p>
       <div class="mini-chart">
         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
         <div class="bar"></div><div class="bar"></div><div class="bar"></div>
@@ -1052,14 +1103,8 @@
 
     <div class="contact-grid">
       <div class="contact-left reveal">
-        <p>
-          Whether you have a data challenge to solve, a model to build,
-          or just want to talk analytics — I'd love to connect.
-        </p>
-
+        <p>Whether you have a data challenge to solve, a model to build, or just want to talk analytics — I'd love to connect.</p>
         <div class="contact-links">
-
-          <!-- ✏️ Replace href with your LinkedIn URL -->
           <a href="https://linkedin.com/in/YOUR-LINKEDIN-URL" target="_blank" class="contact-link">
             <div class="contact-link-icon">in</div>
             <div class="contact-link-info">
@@ -1067,8 +1112,6 @@
               <div class="contact-link-value">linkedin.com/in/your-profile</div>
             </div>
           </a>
-
-          <!-- ✏️ Replace with your email -->
           <a href="mailto:your.email@example.com" class="contact-link">
             <div class="contact-link-icon">✉</div>
             <div class="contact-link-info">
@@ -1076,8 +1119,6 @@
               <div class="contact-link-value">your.email@example.com</div>
             </div>
           </a>
-
-          <!-- ✏️ Add GitHub if desired -->
           <a href="https://github.com/aadijoshi0204" target="_blank" class="contact-link">
             <div class="contact-link-icon" style="font-size:1.2rem;">⌥</div>
             <div class="contact-link-info">
@@ -1085,14 +1126,12 @@
               <div class="contact-link-value">github.com/aadijoshi0204</div>
             </div>
           </a>
-
         </div>
       </div>
 
       <div class="contact-right reveal">
         <h3>Send a message</h3>
         <p>Happy to discuss opportunities, collaborations or interesting problems.</p>
-        <!-- ✏️ Hook this up to Formspree / Netlify Forms / EmailJS for real submissions -->
         <div class="form-field">
           <label>Your Name</label>
           <input type="text" placeholder="Jane Smith" />
@@ -1112,12 +1151,11 @@
 
   <!-- ── Footer ─────────────────────────────────────────────────── -->
   <footer>
-    <!-- ✏️ Replace with your initials/name -->
-    <div class="footer-logo">YN<span>.</span></div>
-    <div class="footer-copy">© 2026 Your Name · Data &amp; Finance Analyst</div>
+    <div class="footer-logo">AJ<span>.</span></div>
+    <div class="footer-copy">© 2026 Aaditya Joshi · Data &amp; Finance Analyst</div>
   </footer>
 
-  <!-- ── JS: Nav scroll + Scroll reveal ────────────────────────── -->
+  <!-- ── JS ─────────────────────────────────────────────────────── -->
   <script>
     // Nav shadow on scroll
     const navbar = document.getElementById('navbar');
@@ -1136,9 +1174,48 @@
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
-    // Contact form (placeholder UX)
+    // Contact form
     document.querySelector('.btn-submit').addEventListener('click', () => {
       alert('Thanks for reaching out! I\'ll get back to you soon.');
+    });
+
+    // ── In-browser photo upload preview ──────────────────────────
+    // This lets you click the placeholder and preview your photo
+    // right in the browser — nothing is uploaded anywhere.
+    const photoInput    = document.getElementById('photoInput');
+    const photoBlock    = document.getElementById('photoBlock');
+    const placeholder   = document.getElementById('photoPlaceholder');
+
+    photoInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        // Remove placeholder
+        placeholder.remove();
+
+        // Create the real img element
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.alt = 'Aaditya Joshi – Data & Finance Analyst';
+        img.id  = 'profilePhoto';
+        photoBlock.insertBefore(img, photoBlock.firstChild);
+
+        // Add hover caption
+        const caption = document.createElement('div');
+        caption.className = 'photo-caption';
+        caption.innerHTML = `
+          <div>
+            <div class="photo-caption-name">Aaditya Joshi</div>
+            <div class="photo-caption-role">Data &amp; Finance Analyst</div>
+          </div>`;
+        photoBlock.appendChild(caption);
+
+        // Remove the hidden input too
+        photoInput.remove();
+      };
+      reader.readAsDataURL(file);
     });
   </script>
 
